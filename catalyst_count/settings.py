@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from utils.envSetup import environment
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,9 +83,13 @@ WSGI_APPLICATION = 'catalyst_count.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': environment.DJANGO_POSTGRES_DATABASE,
+        'USER': environment.DJANGO_POSTGRES_USER,
+        'PASSWORD': environment.DJANGO_POSTGRES_PASSWORD,
+        'HOST': environment.DJANGO_POSTGRES_HOST,
+        'PORT': environment.DJANGO_POSTGRES_PORT,
+    },
 }
 
 
@@ -128,3 +133,37 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# For Authentication
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+)
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'POST',
+    'PUT',
+    'PATCH'
+)
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+)
+
+# For Authorization
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication'
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+
+}
