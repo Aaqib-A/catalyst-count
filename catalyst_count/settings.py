@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     # For Authentication
     'oauth2_provider',
     'corsheaders',
+
+    #My Apps
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +137,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# To use custom User model
+AUTH_USER_MODEL = 'user.User'
 
 # For Authentication
 CORS_ORIGIN_ALLOW_ALL = True

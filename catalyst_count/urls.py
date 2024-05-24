@@ -14,10 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path(r'^authenticate/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+
+    re_path('user/', include('user.urls')),
 ]
 
 admin.site.site_header = 'Catalyst Media\'s Server'

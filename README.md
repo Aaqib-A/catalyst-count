@@ -10,3 +10,9 @@ ALTER ROLE catalyst_user SET client_encoding TO 'utf8';
 ALTER ROLE catalyst_user SET default_transaction_isolation TO 'read committed';
 ALTER ROLE catalyst_user SET timezone TO 'UTC';
 GRANT ALL PRIVILEGES ON DATABASE catalyst_db TO catalyst_user;
+```
+## Migrate the database
+python manage.py migrate
+
+## Create SuperUser
+python manage.py createsuperuser
